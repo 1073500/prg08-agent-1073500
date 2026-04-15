@@ -74,3 +74,8 @@ export const readDate = tool (
         },
     },
 );
+
+export const myToolResponse = z.object({
+    message: z.string().describe("The message to the user"),
+    toolsUsed: z.array(z.string()).describe("List with names of tools used in the response, without the word function")
+});

@@ -10,6 +10,7 @@ app.get('/api/test', (req, res) => {
 
 app.post('/api/chat', async(req, res) => {
     const { message } = req.body
+    const thread_id = req.body?.thread_id ?? "1";
     const response = await callAgent(message)
     res.json({ response })
 })

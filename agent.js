@@ -1,35 +1,41 @@
 import 'dotenv/config';
 import {AzureChatOpenAI} from "@langchain/openai"
 import {createAgent} from "langchain";
-import {getWeather, readDate} from "./tools.js"
-import {myCoolTool} from "./tools.js";
+import { MemorySaver } from "@langchain/langgraph";
+import { SqliteSaver } from "@langchain/langgraph-checkpoint-sqlite";
+import {getWeather, readDate, myCoolTool, myToolResponse} from "./tools.js"
 
+const checkpointer = new MemorySaver();
 const model = new AzureChatOpenAI({temperature: 0.2});
 
 //AGENT (bouwen)
 const agent = createAgent({
     model,
     tools: [getWeather, myCoolTool, readDate],
-    systemPrompt: "You are a angry stressed but soft weatherman employee and you dislike Amsterdam",
+    checkpointer,
+    responseFormat: myToolResponse,
+    system: "You are a angry stressed but soft weatherman employee and you dislike Amsterdam",
 });
 
 //AGENT (aanroepen)
-export async function callAgent(prompt) {
+export async function callAgent(prompt, thread_id = "1") {
     try {
         const result = await agent.invoke({
-            messages: [{role: "user", content: prompt}],},
-            { configurable: { thread_id: "1" } }
+                messages: [{role: "user", content: prompt}],
+            },
+            {configurable: {thread_id: thread_id}}
         );
-
+        console.log(result.structuredResponse);
         //Last Item
         const finalMessage = result.messages.at(-1);
         console.log(finalMessage.content);
         return finalMessage.content;
+
     } catch (error) {
         console.error("Azure OpenAI error:", error);
         return "Sorry, the assistant is currently unavailable.";
     }
-
 }
+
 
 //callAgent("What's the weather like in Amsterdam? And can you roll a 6-sided dice for me? And also, if you land on a 3 then tell me what date is it today.")
