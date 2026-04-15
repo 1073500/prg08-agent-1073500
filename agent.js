@@ -32,4 +32,4 @@ export async function callAgent(prompt) {
 
 }
 
-callAgent("What's the weather like in Amsterdam? And can you roll a 6-sided dice for me? And also, if you land on a 3 then tell me what date is it today.")
+//callAgent("What's the weather like in Amsterdam? And can you roll a 6-sided dice for me? And also, if you land on a 3 then tell me what date is it today.")
