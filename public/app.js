@@ -3,6 +3,7 @@ const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-messages');
 const submitButton = chatForm.querySelector('button');
 
+const userid = `app name-${crypto.randomUUID()}`;
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const userInput = chatInput.value.trim();
@@ -19,7 +20,7 @@ chatForm.addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({message: userInput}),
+            body: JSON.stringify({message: userInput, userid}),
         });
 
         if (!response.ok) {

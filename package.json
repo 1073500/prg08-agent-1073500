@@ -10,10 +10,13 @@
     "agent": "node --env-file=.env server.js"
   },
   "dependencies": {
+    "@langchain/community": "^1.1.27",
     "@langchain/core": "^1.1.39",
+    "@langchain/langgraph": "^1.2.8",
+    "@langchain/langgraph-checkpoint-sqlite": "^1.0.1",
     "@langchain/openai": "^1.4.4",
-    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "faiss-node": "^0.5.1",
     "langchain": "^1.3.1",
     "zod": "^4.3.6"
   }

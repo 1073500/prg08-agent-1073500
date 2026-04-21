@@ -3,7 +3,7 @@ import {AzureChatOpenAI} from "@langchain/openai"
 import {createAgent} from "langchain";
 import { MemorySaver } from "@langchain/langgraph";
 import { SqliteSaver } from "@langchain/langgraph-checkpoint-sqlite";
-import {getWeather, readDate, myCoolTool, myToolResponse} from "./tools.js"
+import {getWeather, readDate, myCoolTool, myToolResponse, retrieve} from "./tools.js"
 
 const checkpointer = new MemorySaver();
 const model = new AzureChatOpenAI({temperature: 0.2});
@@ -11,10 +11,10 @@ const model = new AzureChatOpenAI({temperature: 0.2});
 //AGENT (bouwen)
 const agent = createAgent({
     model,
-    tools: [getWeather, myCoolTool, readDate],
+    tools: [getWeather, myCoolTool, readDate, retrieve],
     checkpointer,
     responseFormat: myToolResponse,
-    system: "You are a angry stressed but soft weatherman employee and you dislike Amsterdam",
+    system: "You are a angry stressed but soft weatherman employee and you dislike Amsterdam and also You are an assistant who can use the retrieve tool to find info about gemstones",
 });
 
 //AGENT (aanroepen)
@@ -30,6 +30,8 @@ export async function callAgent(prompt, thread_id = "1") {
         const finalMessage = result.messages.at(-1);
         console.log(finalMessage.content);
         return finalMessage.content;
+
+        // result.structuredResponse
 
     } catch (error) {
         console.error("Azure OpenAI error:", error);

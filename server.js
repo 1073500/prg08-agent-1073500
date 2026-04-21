@@ -7,11 +7,12 @@ app.use(express.json())
 app.get('/api/test', (req, res) => {
     res.json({ message: "hello world" })
 })
-
 app.post('/api/chat', async(req, res) => {
     const { message } = req.body
     const thread_id = req.body?.thread_id ?? "1";
     const response = await callAgent(message)
+    const { prompt, usersid } = req.body;
+    console.log(`user ${usersid} heeft deze vraag: ${prompt}`)
     res.json({ response })
 })
 

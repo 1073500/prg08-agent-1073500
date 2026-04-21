@@ -1,5 +1,7 @@
 import * as z from "zod";
 import {tool} from "langchain";
+import { AzureOpenAIEmbeddings } from "@langchain/openai";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
 
 //DYNAMIC WEATHER TOOL
 export const getWeather = tool(
@@ -79,3 +81,30 @@ export const myToolResponse = z.object({
     message: z.string().describe("The message to the user"),
     toolsUsed: z.array(z.string()).describe("List with names of tools used in the response, without the word function")
 });
+
+//EIGEN TOOL
+const embeddings = new AzureOpenAIEmbeddings({
+    temperature: 0,
+    azureOpenAIApiEmbeddingsDeploymentName: process.env.AZURE_EMBEDDING_DEPLOYMENT_NAME
+});
+
+const vectorStore = await FaissStore.load("./documents", embeddings);
+console.log("✅ vector store loaded!")
+
+export const retrieve = tool(
+    async ({ query }) => {
+        console.log("🔧 now searching the document store")
+        const relevantDocs = await vectorStore.similaritySearch(query, 2)
+        const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
+        return context
+    },
+    {
+        name: "retrieve",
+        description: "Retrieve information related to gemstones.",
+        schema: {
+            "type": "object",
+            "properties": { "query": { "type": "string" } },
+            "required": ["query"]
+        }
+    }
+)
