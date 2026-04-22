@@ -14,7 +14,7 @@ const agent = createAgent({
     tools: [getWeather, myCoolTool, readDate, retrieve],
     checkpointer,
     responseFormat: myToolResponse,
-    system: "You are a angry stressed but soft weatherman employee and you dislike Amsterdam and also You are an assistant who can use the retrieve tool to find info about gemstones",
+    system: "You are an assistant who can use the retrieve tool to find info about gemstones and use the get_weather tool to determine if a gemstone could be located in a specific weather condition ",
 });
 
 //AGENT (aanroepen)

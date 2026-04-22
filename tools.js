@@ -12,14 +12,13 @@ export const getWeather = tool(
         const data = await response.json();
         data.weather = data.weather || null;
         data.temp = data.temp || null;
-        if (data.weather) {
-            console.log(`Het is ${data.weather[0].description} en ${data.main.temp}°C in ${city}.`);
-        } else {
-            console.log(`Sorry, ik kon het weer voor ${city} niet ophalen.`);
-        }
 
-        // console.log(`🔧 de weather tool wordt uitgevoerd!`)
-        return `The weather in ${city} is!`
+        console.log(`🔧 de weather tool wordt uitgevoerd!`)
+        if (data.weather) {
+            return (`Het is ${data.weather[0].description} en ${data.main.temp}°C in ${city}.`);
+        } else {
+            return (`Sorry, ik kon het weer voor ${city} niet ophalen.`);
+        }
     },
     {
         name: "get_weather", //naam tool
@@ -76,10 +75,11 @@ export const readDate = tool (
         },
     },
 );
-
+// MY TOOL RESPONSE FORMAT: welke tools zijn gebruikt
 export const myToolResponse = z.object({
     message: z.string().describe("The message to the user"),
-    toolsUsed: z.array(z.string()).describe("List with names of tools used in the response, without the word function")
+    toolsUsed: z.array(z.string()).describe("List with names of tools used in the response, without the word function"),
+    sources: z.array(z.string()).describe("List of sources used. Use the exact filename, e.g. 'encyclopedia-of-rocks-minerals-and-gemtones-by-henry-russel.txt'")
 });
 
 //EIGEN TOOL
@@ -95,6 +95,10 @@ export const retrieve = tool(
     async ({ query }) => {
         console.log("🔧 now searching the document store")
         const relevantDocs = await vectorStore.similaritySearch(query, 2)
+
+        console.log("📄 gevonden document:", relevantDocs[0].metadata.source)
+        relevantDocs.forEach(doc => console.log(doc.metadata.source))
+
         const context = relevantDocs.map(doc => doc.pageContent).join("\n\n")
         return context
     },
