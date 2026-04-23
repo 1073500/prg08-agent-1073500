@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import {AzureChatOpenAI} from "@langchain/openai"
 import {createAgent} from "langchain";
 import { MemorySaver } from "@langchain/langgraph";
