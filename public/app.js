@@ -43,8 +43,21 @@ chatForm.addEventListener('submit', async (e) => {
 
 function addMessage(text, sender) {
     const messageElement = document.createElement('div');
-    messageElement.classList.add('message', `${sender}-message`);
-    messageElement.textContent = text;
+
+    if (sender === 'user') {
+        messageElement.className = 'flex justify-end';
+        messageElement.innerHTML = `
+            <div class="bg-amber-600/80 border border-amber-600 text-white text-sm px-4 py-2.5 rounded-2xl rounded-br-sm max-w-[75%]">
+                ${text}
+            </div>`;
+    } else {
+        messageElement.className = 'flex justify-start';
+        messageElement.innerHTML = `
+            <div class="border border-slate-600 bg-black/60 backdrop-blur-sm text-white/90 text-sm px-4 py-2.5 rounded-2xl rounded-bl-sm max-w-[75%]">
+                ${text}
+            </div>`;
+    }
+
     chatMessages.appendChild(messageElement);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }

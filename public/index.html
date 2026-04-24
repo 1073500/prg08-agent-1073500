@@ -5,21 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Chatbot</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f0f1a',
+                        bubble: '#1e1e2e',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-<div>
-    <h1 class="chat-title">Chat With a ...</h1>
-    <div class="screen top-screen">
-        <div id="chat-messages"></div>
-    </div>
+<body class="h-screen flex flex-col text-white font-sans bg-cover bg-center bg-no-repeat"
+      style="background-image: url('Hubble_ultra_deep_field.jpg');">
 
-    <div class="screen bottom-screen">
-        <form id="chat-form">
-            <textarea id="chat-input" placeholder="Tap to write..." autocomplete="off"></textarea>
-            <button type="submit" id="send-btn">></button>
-        </form>
+<!-- Header -->
+<div class="bg-black/60 backdrop-blur-sm flex items-center gap-3 px-5 py-4 border-b border-white/30">
+    <div class="w-9 h-9 rounded-full bg-amber-600/70 flex items-center justify-center text-sm">✦</div>
+    <div>
+        <h1 class="text-base font-semibold leading-tight" id="chat-title">Chat With a Rocky Adventure</h1>
     </div>
 </div>
+
+<!-- Berichten -->
+<div id="chat-messages" class="flex-1 overflow-y-auto px-4 py-5 flex flex-col gap-3">
+    <!-- Berichten worden hier ingevoegd via app.js -->
+</div>
+
+<!-- Input bar -->
+<div class="bg-black/60 backdrop-blur-sm px-4 py-4 border-t border-white/30">
+    <form id="chat-form" class="flex items-center gap-3 border border-slate-700 hover:border-slate-400 bg-slate-900 rounded-full px-4 py-2">
+            <textarea
+                    id="chat-input"
+                    rows="1"
+                    placeholder="Tap to write..."
+                    autocomplete="off"
+                    class="flex-1 bg-transparent text-sm text-white placeholder-white/30 resize-none outline-none"
+            ></textarea>
+        <button
+                type="submit"
+                id="send-btn"
+                class="w-8 h-8 rounded-full bg-amber-600/70 hover:bg-amber-600 flex items-center justify-center text-white text-sm transition"
+        >›</button>
+    </form>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
