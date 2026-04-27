@@ -29,7 +29,16 @@ chatForm.addEventListener('submit', async (e) => {
 
         const data = await response.json();
         const serverResponse = data.response;
+        const toolsUsed = data.toolsUsed;
+        const sources = data.sources
         addMessage(serverResponse, 'server');
+
+        if (toolsUsed && toolsUsed.length > 0) {
+            addMessage(`🔧 Used tools: ${toolsUsed.join(', ')}`, 'server');
+        }
+        if (sources && sources.length > 0) {
+            addMessage(`📄 Sources found: ${sources.join(', ')}`, 'server');
+        }
 
     } catch (error) {
         console.error('Error fetching from server:', error);

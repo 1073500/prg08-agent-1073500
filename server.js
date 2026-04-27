@@ -13,7 +13,11 @@ app.post('/api/chat', async(req, res) => {
     const response = await callAgent(message)
     const { prompt, usersid } = req.body;
     console.log(`user ${usersid} heeft deze vraag: ${prompt}`)
-    res.json({ response })
+    res.json({
+        response: response.message,
+        toolsUsed: response.toolsUsed,
+        sources: response.sources
+    });
 })
 
 app.use(express.static("public"));
