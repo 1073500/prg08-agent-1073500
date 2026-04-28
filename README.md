@@ -1,0 +1,50 @@
+🪨 RockGPT — Rocky Adventure
+
+Een AI-chatbot die steenliefhebbers helpt bij het identificeren van stenen, het vinden van hun herkomst en het leren over hun geologische geschiedenis.
+
+🔗 Live demo: prg08-agent-1073500.onrender.com
+
+Wat is RockGPT?
+RockGPT is een geologie-chatbot aangedreven door Azure OpenAI en LangChain. De avatar, Rocky Adventure, helpt gebruikers — van beginners tot gevorderde verzamelaars — vragen beantwoorden zoals:
+
+"Wat voor soort steen is dit?"
+"Waar komt hij vandaan?"
+"Hoe oud is hij geologisch gezien?"
+
+
+Functionaliteiten
+
+🔍 RAG (Retrieval-Augmented Generation) — doorzoekt een vectordatabase van 10+ pagina's aan geologiedocumenten
+🌤️ Weertool — controleert of de huidige omstandigheden geschikt zijn voor het zoeken naar stenen buiten
+🧠 Checkpointer geheugen — onthoudt de gesprekscontext via LangGraph
+📄 Bronvermelding — toont de gebruiker welke documenten zijn gebruikt voor het antwoord
+🛠️ Tool-transparantie — gebruikers zien welke tools Rocky heeft aangeroepen (bijv. retrieve, get_weather)
+
+
+Technologieën
+LaagTechnologieLLMAzure OpenAIAgent frameworkLangChain / LangGraphVectorstore met FAISS + ExpressGeheugenLangGraph CheckpointerHostingRender
+
+Projectstructuur
+├── agent.js          # LangChain agent met tools en geheugen
+├── server.js         # Express server — stelt /api/chat endpoint beschikbaar
+├── create.js         # Maakt de vectorstore aan of overschrijft hem
+├── load.js           # Laadt de vectorstore in om te testen
+├── tools/
+│   ├── retrieve.js   # RAG-tool — doorzoekt geologiedocumenten
+│   └── get_weather.js # Weertool — controleert buitenomstandigheden
+└── docs/             # Brondocumenten gebruikt voor de embeddings
+
+Aan de slag
+bashnpm install
+Kopieer .env.example naar .env en vul je gegevens in:
+envAZURE_OPENAI_API_KEY=...
+AZURE_OPENAI_ENDPOINT=...
+OPENWEATHER_API_KEY=...
+Bouw de vectorstore op:
+bashnode create.js
+Start de server:
+bashnode server.js
+
+
+Toon & Persoonlijkheid
+Rocky is avontuurlijk, speels en gooit er af en toe een steengerelateerde grap tussendoor. Hij houdt zich strikt aan feiten — geen astrologie of kristalenergie, puur geologie. Hij stelt ook tegenvragen om jouw steen beter te begrijpen voordat hij een antwoord geeft.
