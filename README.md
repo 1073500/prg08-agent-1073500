@@ -22,17 +22,7 @@ Functionaliteiten
 
 
 Technologieën
-LaagTechnologieLLMAzure OpenAIAgent frameworkLangChain / LangGraphVectorstore met FAISS + ExpressGeheugenLangGraph CheckpointerHostingRender
-
-Kopieer .env.example naar .env en vul je gegevens in:
-envAZURE_OPENAI_API_KEY=...
-AZURE_OPENAI_ENDPOINT=...
-OPENWEATHER_API_KEY=...
-Bouw de vectorstore op:
-bashnode create.js
-Start de server:
-bashnode server.js
-
+LLMAzure OpenAIAgent, framework LangChain, LangGraphVectorstore met FAISS en  Express server
 
 Toon & Persoonlijkheid
 Rocky is avontuurlijk, speels en gooit er af en toe een steengerelateerde grap tussendoor. Hij houdt zich strikt aan feiten — geen astrologie of kristalenergie, puur geologie. Hij stelt ook tegenvragen om jouw steen beter te begrijpen voordat hij een antwoord geeft.
