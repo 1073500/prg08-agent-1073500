@@ -37,8 +37,8 @@ export const myCoolTool = tool (
     return Math.floor(Math.random() * sides) +1
     },
     {
-        name: "my_cool_tool", //naam tool
-        description: "Roll a dice!", //wat kan je ermee
+        name: "my_cool_tool",
+        description: "Roll a dice!",
         schema: {
             type: "object",
             properties: {
