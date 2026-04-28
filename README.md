@@ -24,18 +24,6 @@ Functionaliteiten
 Technologieën
 LaagTechnologieLLMAzure OpenAIAgent frameworkLangChain / LangGraphVectorstore met FAISS + ExpressGeheugenLangGraph CheckpointerHostingRender
 
-Projectstructuur
-├── agent.js          # LangChain agent met tools en geheugen
-├── server.js         # Express server — stelt /api/chat endpoint beschikbaar
-├── create.js         # Maakt de vectorstore aan of overschrijft hem
-├── load.js           # Laadt de vectorstore in om te testen
-├── tools/
-│   ├── retrieve.js   # RAG-tool — doorzoekt geologiedocumenten
-│   └── get_weather.js # Weertool — controleert buitenomstandigheden
-└── docs/             # Brondocumenten gebruikt voor de embeddings
-
-Aan de slag
-bashnpm install
 Kopieer .env.example naar .env en vul je gegevens in:
 envAZURE_OPENAI_API_KEY=...
 AZURE_OPENAI_ENDPOINT=...
